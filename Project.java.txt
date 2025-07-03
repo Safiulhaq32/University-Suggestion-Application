@@ -1,0 +1,97 @@
+Java
+
+
+import java.awt.*; import java.util.*; import javax.swing.*;
+
+public class UniversitySuggestionApp {
+
+	// Universities data
+	static Map<String, Map<String, Integer>> universities = new HashMap<>();
+
+	public static void main(String[] args) {
+	// Initialize universities data
+	universities.put("Karachi University", Map.of("Computer Science", 81, "Software Engineering", 82));
+	universities.put("NED", Map.of("Computer Science", 85, "Software Engineering", 87, "Cyber Security", 75));
+ 
+ 
+Engineering", 76));
+ 
+"Information Technology", 62, "Computer Engineering", 65));
+	universities.put("IQRA UNIVERSITY", Map.of("Computer Science", 45));
+	universities.put("BAHRIA UNIVERSITY", Map.of("Computer Science", 65, "Software Engineering", 68, "Cyberatics and Robotics", 57));
+	universities.put("PAF KIET", Map.of("Computer Science", 59, "Software Engineering", 55));
+	universities.put("USMAN INSTITUTE OF TECHNOLOGY(UIT)", Map.of("Computer Science", 75, "Software Engineering", 78, "Computer Engineering", 59));
+	universities.put("FEDERAL URDU UNIVERSITY (FUAST)", Map.of("Computer Science", 71));
+	universities.put("DAWOOD UNIVERSITY", Map.of("Computer Science", 79, "Software Engineering", 81));
+
+
+Science", 49));
+	universities.put("HAMDARD UNIVERSITY", Map.of("Computer Science", 52, "Software Engineering", 56, "Artificial Intelligence", 45));
+	universities.put("IBA", Map.of("Computer Science", 85, "Artificial Intelligence", 70, "Computer Networks", 65));
+	universities.put("ILMA", Map.of("Computer Science", 62, "Software Engineering", 67, "Artificial Intelligence", 74, "Data Science", 46, "Information Technology", 45));
+
+	// Frame setup
+	JFrame frame = new JFrame("University Suggestion App");
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setLayout(new FlowLayout());
+
+	// Labels
+	JLabel matricMarksLabel = new JLabel("Matric Marks:");
+	JLabel matricTotalLabel = new JLabel("Out of:");
+	JLabel interMarksLabel = new JLabel("Intermediate Marks:");
+	JLabel interTotalLabel = new JLabel("Out of:");
+
+	// Text Fields
+ 
+ 
+	// Result Area
+	JTextArea resultArea = new JTextArea(10, 30);
+	resultArea.setEditable(false);
+
+	// Button to get suggestions
+	JButton suggestButton = new JButton("Get University Suggestions");
+
+	// Adding components to frame frame.add(matricMarksLabel); frame.add(matricMarksField); frame.add(matricTotalLabel); frame.add(matricTotalField); frame.add(interMarksLabel); frame.add(interMarksField); frame.add(interTotalLabel); frame.add(interTotalField);
+	frame.add(suggestButton);
+	frame.add(new JScrollPane(resultArea));
+
+	// ActionListener for the button
+	suggestButton.addActionListener(_ -> {
+	try {
+	// Read Matric and Intermediate marks
+	int matricMarks = Integer.parseInt(matricMarksField.getText());
+	int matricTotal = Integer.parseInt(matricTotalField.getText());
+	int interMarks = Integer.parseInt(interMarksField.getText());
+	int interTotal = Integer.parseInt(interTotalField.getText());
+
+// Calculate user's percentage	
+double userPercentage = (matricMarks / (double)
+matricTotal * 100) * 0.3	
++ (interMarks / (double)
+	
+interTotal * 100) * 0.7;	
+
+	StringBuilder suggestions = new StringBuilder();
+
+	Map<String, Integer> programs = universities.get(university);
+	for (String program : programs.keySet()) {
+	if (userPercentage >= programs.get(program)) {
+ 
+ 
+
+	// Display the result
+	if (suggestions.length() > 0) {
+	resultArea.setText("Congratulations! You are eligible for the following programs:\n" + suggestions);
+	} else {
+	resultArea.setText("Sorry, you are not eligible for any degree programs.");
+	}
+	} catch (NumberFormatException ex) {
+ 
+	}
+	});
+
+	// Frame visibility
+	frame.setSize(400, 300);
+	frame.setVisible(true);
+	}
+}
